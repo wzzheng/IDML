@@ -5,6 +5,7 @@ import math
 import random
 from pytorch_metric_learning import miners, losses
 
+
 def binarize(T, nb_classes):
     T = T.cpu().numpy()
     import sklearn.preprocessing
