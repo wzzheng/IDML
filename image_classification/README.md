@@ -1,6 +1,6 @@
 # Introspective Deep Metric Learning
 
-This repository is the official implementation of **Introspective Deep Metric Learning** on the image classification task. 
+The official implementation of **Introspective Deep Metric Learning** on the image classification task. 
 
 ## Datasets 
 The datasets should be organized in the data folder.
@@ -189,4 +189,9 @@ python train.py \
 
 ## Device 
 
-We tested our code on a linux machine with 4 Nvidia RTX 3090 GPU cards. 
+We tested our code on a Linux machine with 4 Nvidia RTX 3090 GPU cards. 
+
+## Acknowledgment
+
+Our code is based on [CutMix](https://github.com/clovaai/CutMix-PyTorch).
+

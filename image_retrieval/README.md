@@ -1,6 +1,6 @@
 # Introspective Deep Metric Learning
 
-This repository is the official implementation of **Introspective Deep Metric Learning** on the image retrieval task. 
+The official implementation of **Introspective Deep Metric Learning** on the image retrieval task. 
 
 ## Datasets 
 The datasets should be organized in the data folder.
@@ -127,4 +127,8 @@ CUDA_VISIBLE_DEVICES=0,1,2,3 python train.py \
 
 ## Device 
 
-We tested our code on a linux machine with 8 Nvidia RTX 2080ti GPU cards. 
+We tested our code on a Linux machine with 8 Nvidia RTX 2080ti GPU cards. 
+
+## Acknowledgment
+
+Our code is based on [ProxyAnchor](https://github.com/tjddus9597/Proxy-Anchor-CVPR2020).
