@@ -123,13 +123,10 @@ For image classification, we followed the setting of [CutMix](https://github.com
 If you find this project useful in your research, please cite:
 
 ````
-
-```
 @article{wang2022introspective,
     title={Introspective Deep Metric Learning},
     author={Wang, Chengkun and Zheng, Wenzhao and Zhu, Zheng and Zhou, Jie and Lu, Jiwen},
     journal={arXiv preprint arXiv:},
     year={2022}
 }
-```
 ````
