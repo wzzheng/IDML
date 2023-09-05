@@ -1,89 +1,166 @@
-# Introspective Deep Metric Learning
+# [TPAMI 2023] Introspective Deep Metric Learning
 
 This repository is the official implementation of our paper:
 
 >  Introspective Deep Metric Learning
 >
-> Chengkun Wang\*, [Wenzhao Zheng\*](https://scholar.google.com/citations?user=LdK9scgAAAAJ&hl=en), [Zheng Zhu](http://www.zhengzhu.net/), [Jie Zhou](https://scholar.google.com/citations?user=6a79aPwAAAAJ&hl=en&authuser=1), and [Jiwen Lu](http://ivg.au.tsinghua.edu.cn/Jiwen_Lu/)
+>  Chengkun Wang\*, [Wenzhao Zheng\*](https://scholar.google.com/citations?user=LdK9scgAAAAJ&hl=en), [Zheng Zhu](http://www.zhengzhu.net/), [Jie Zhou](https://scholar.google.com/citations?user=6a79aPwAAAAJ&hl=en&authuser=1), and [Jiwen Lu](http://ivg.au.tsinghua.edu.cn/Jiwen_Lu/)
+>
+>  IEEE Transactions on Pattern Analysis and Machine Intelligence (T-PAMI), 2023
 
 ## Introduction
 
-This paper proposes an introspective deep metric learning (IDML) framework for uncertainty-aware comparisons of images. Conventional deep metric learning methods produce confident semantic distances between images regardless of the uncertainty level. However, we argue that a good similarity model should consider the semantic discrepancies with caution to better deal with ambiguous images for more robust training. To achieve this, we propose to represent an image using not only a semantic embedding but also an accompanying uncertainty embedding, which describe the semantic characteristics and ambiguity of an image, respectively. We further propose an introspective similarity metric to make similarity judgments between images considering both their semantic differences and ambiguities. Our framework attains state-of-the-art performance on the widely used CUB-200-2011, Cars196, and Stanford Online Products datasets for image retrieval. We further evaluate our framework for image classification on the ImageNet-1K, CIFAR-10, and CIFAR-100 datasets, which shows that equipping existing data mixing methods with the proposed introspective metric consistently achieves better results (e.g., +0.44% for CutMix on ImageNet-1K).
+This paper proposes an introspective deep metric learning (IDML) framework for uncertainty-aware comparisons of images. Conventional deep metric learning methods produce confident semantic distances between images regardless of the uncertainty level. However, we argue that a good similarity model should consider the semantic discrepancies with caution to better deal with ambiguous images for more robust training. To achieve this, we propose to represent an image using not only a semantic embedding but also an accompanying uncertainty embedding, which describe the semantic characteristics and ambiguity of an image, respectively. We further propose an introspective similarity metric to make similarity judgments between images considering both their semantic differences and ambiguities. Our framework attains state-of-the-art performance on the widely used CUB-200-2011, Cars196, and Stanford Online Products datasets.
 
 ## Motivation
 
-![motivation](./motivation.png)
+![motivation](assets/motivation.png)
 
 For a semantically ambiguous image, conventional DML explicitly reduces its distance with other intraclass images unaware of the uncertainty.
 Differently, the proposed introspective similarity metric provides an alternative way to enlarge the uncertainty level to allow confusion in the network.  
 
 ## Performance
 
-### Image Retrieval
+![performance](assets/performance.png)
 
-For image retrieval, we followed the setting of [ProxyAnchor](https://github.com/tjddus9597/Proxy-Anchor-CVPR2020).
+## Datasets 
 
-#### CUB-200-2011
-| Methods      | Setting  | R@1      | R@2      | NMI      | RP       | M@R      |
-| ------------ | -------- | -------- | -------- | -------- | -------- | -------- |
-| Triplet-SH   | 512R     | 63.6     | 75.5     | 67.9     | 35.1     | 24.0     |
-| **IDML-TSH** | **512R** | **65.3** | **76.5** | **69.5** | **36.2** | **25.0** |
-| ProxyNCA     | 512R     | 64.6     | 75.6     | 69.1     | 35.5     | 24.7     |
-| **IDML-PN**  | **512R** | **66.0** | **76.4** | **70.1** | **36.5** | **25.4** |
-| FastAP       | 512R     | 65.1     | 75.4     | 68.5     | 35.9     | 24.1     |
-| **IDML-FAP** | **512R** | **66.4** | **76.4** | **69.7** | **36.7** | **25.5** |
-| Contrastive  | 512R     | 65.6     | 76.5     | 68.9     | 36.5     | 24.7     |
-| **IDML-Con** | **512R** | **67.2** | **77.6** | **71.3** | **37.5** | **25.7** |
-| Margin-DW    | 512R     | 65.9     | 77.0     | 69.5     | 36.0     | 24.9     |
-| **IDML-MDW** | **512R** | **67.9** | **78.3** | **72.1** | **37.2** | **26.1** |
-| Multi-Sim    | 512R     | 67.3     | 78.2     | 72.7     | 36.6     | 25.5     |
-| **IDML-MS**  | **512R** | **69.0** | **79.5** | **73.5** | **38.5** | **27.2** |
-| ProxyAnchor  | 512R     | 69.0     | 79.4     | 72.3     | 38.5     | 27.5     |
-| **IDML-PA**  | **512R** | **70.7** | **80.2** | **73.5** | **39.3** | **28.4** |
+The datasets should be organized in the data folder.
 
-#### Cars196
-| Methods      | Setting  | R@1      | R@2      | NMI      | RP       | M@R      |
-| ------------ | -------- | -------- | -------- | -------- | -------- | -------- |
-| Triplet-SH   | 512R     | 70.8     | 81.7     | 64.8     | 31.7     | 21.1     |
-| **IDML-TSH** | **512R** | **73.7** | **84.0** | **67.3** | **33.8** | **24.1** |
-| ProxyNCA     | 512R     | 82.6     | 89.0     | 66.4     | 33.5     | 23.5     |
-| **IDML-PN**  | **512R** | **85.5** | **91.3** | **69.0** | **36.1** | **26.4** |
-| FastAP       | 512R     | 81.6     | 88.5     | 68.8     | 35.1     | 25.2     |
-| **IDML-FAP** | **512R** | **83.9** | **89.9** | **71.9** | **36.5** | **26.7** |
-| Contrastive  | 512R     | 82.7     | 89.6     | 69.5     | 35.8     | 25.7     |
-| **IDML-Con** | **512R** | **85.5** | **91.5** | **72.5** | **38.8** | **29.0** |
-| Margin-DW    | 512R     | 82.6     | 88.7     | 69.3     | 36.4     | 26.5     |
-| **IDML-MDW** | **512R** | **86.1** | **91.7** | **73.0** | **39.2** | **29.7** |
-| Multi-Sim    | 512R     | 83.3     | 90.9     | 72.2     | 37.4     | 27.4     |
-| **IDML-MS**  | **512R** | **86.3** | **92.2** | **74.1** | **40.0** | **30.8** |
-| ProxyAnchor  | 512R     | 87.3     | 92.7     | 75.7     | 40.9     | 31.8     |
-| **IDML-PA**  | **512R** | **90.6** | **94.5** | **76.9** | **42.6** | **33.8** |
+### CUB-200-2011
 
+Download from [here](http://www.vision.caltech.edu/visipedia/CUB-200-2011.html).
 
-#### Stanford Online Products
-| Methods      | Setting  | R@1      | R@10     | NMI      | RP       | M@R      |
-| ------------ | -------- | -------- | -------- | -------- | -------- | -------- |
-| Triplet-SH   | 512R     | 76.5     | 89.1     | 89.7     | 51.3     | 48.4     |
-| **IDML-TSH** | **512R** | **77.4** | **89.4** | **90.1** | **51.9** | **49.0** |
-| ProxyNCA     | 512R     | 77.0     | 89.1     | 89.5     | 51.9     | 49.0     |
-| **IDML-PN**  | **512R** | **78.3** | **90.1** | **89.9** | **53.0** | **49.9** |
-| FastAP       | 512R     | 75.9     | 89.2     | 89.7     | 50.1     | 46.8     |
-| **IDML-FAP** | **512R** | **76.8** | **89.7** | **90.9** | **50.9** | **47.9** |
-| Contrastive  | 512R     | 76.4     | 88.5     | 88.9     | 50.9     | 47.9     |
-| **IDML-Con** | **512R** | **77.3** | **89.7** | **90.0** | **51.7** | **48.5** |
-| Margin-DW    | 512R     | 78.5     | 89.9     | 90.1     | 53.4     | 50.2     |
-| **IDML-MDW** | **512R** | **79.4** | **90.6** | **91.0** | **53.7** | **50.4** |
-| Multi-Sim    | 512R     | 78.1     | 90.0     | 89.9     | 52.9     | 49.9     |
-| **IDML-MS**  | **512R** | **79.7** | **91.4** | **91.2** | **53.7** | **50.9** |
-| ProxyAnchor  | 512R     | 79.5     | 91.1     | 91.0     | 53.7     | 50.5     |
-| **IDML-PA**  | **512R** | **81.5** | **92.7** | **92.3** | **54.8** | **51.3** |
+Organize the dataset as follows:
 
+```
+- CUB_200_2011
+    |- images
+    |   |- 001.Black_footed_Albatross
+    |   |   |- Black_Footed_Albatross_0001_796111
+    |   |   |- ...
+    |   |- ...
+```
 
+### Cars196
 
+Download from [here](http://ai.stanford.edu/~jkrause/cars/car_dataset.html).
 
-### Image Classification
+Organize the dataset as follows:
 
-For image classification, we followed the setting of [CutMix](https://github.com/clovaai/CutMix-PyTorch).
+```
+- cars196
+    |- car_ims
+    |   |- image000001
+    |   |- ...
+    |- cars_annos.mat
+```
+
+### Stanford Online Products
+
+Download from [here](http://cvgl.stanford.edu/projects/lifted_struct/)
+
+Organize the dataset as follows:
+
+```
+- Standford_Online_Products
+    |- bicycle_final
+    |   |- image0
+    |   |- ...
+    |- ...
+    |- Ebay_train.txt
+    |- Ebay_test.txt
+```
+
+## Requirements
+
+- Python3
+- PyTorch (>1.0)
+- NumPy
+- wandb
+
+## Training
+
+We provide the training settings of our IDML framework with the ProxyAnchor loss on three datasets, which achieves state-of-the-art performances compared with previous methods.
+
+### CUB-200-2011
+
+To train the proposed IDML framework using the ProxyAnchor loss on CUB200 in the paper, run this command:
+
+```
+CUDA_VISIBLE_DEVICES=0,1,2,3 python train.py \
+--gpu -1 \
+--loss Proxy_Anchor \
+--model resnet50 \
+--embedding-size 512 \
+--batch-size 120 \
+--lr 6e-4 \
+--dataset cub \
+--warm 5 \
+--bn-freeze 1 \
+--lr-decay-step 5
+```
+
+| Method  | Backbone  | R@1  | R@2  | R@4  | NMI  |  RP  | MAP@R |
+| :-----: | :-------: | :--: | :--: | :--: | :--: | :--: | :---: |
+| IDML-PA | ResNet-50 | 70.7 | 80.2 | 87.9 | 73.5 | 39.3 | 28.4  |
+
+### Cars196
+
+To train the proposed IDML framework using the ProxyAnchor loss on CUB200 in the paper, run this command:
+
+```
+CUDA_VISIBLE_DEVICES=0,1,2,3 python train.py \
+--gpu -1 \
+--loss Proxy_Anchor \
+--model resnet50 \
+--embedding-size 512 \
+--batch-size 120 \
+--lr 2.5e-4 \
+--dataset cars \
+--warm 5 \
+--bn-freeze 1 \
+--lr-decay-step 10
+```
+
+| Method  | Backbone  | R@1  | R@2  | R@4  | NMI  |  RP  | MAP@R |
+| :-----: | :-------: | :--: | :--: | :--: | :--: | :--: | :---: |
+| IDML-PA | ResNet-50 | 90.6 | 94.5 | 97.1 | 76.9 | 42.6 | 33.8  |
+
+### Stanford_Online_Products
+
+To train the proposed IDML framework using the ProxyAnchor loss on SOP in the paper, run this command:
+
+```
+CUDA_VISIBLE_DEVICES=0,1,2,3 python train.py \
+--gpu -1 \
+--loss Proxy_Anchor \
+--model resnet50 \
+--embedding-size 512 \
+--batch-size 120 \
+--lr 6e-4 \
+--dataset SOP \
+--warm 5 \
+--bn-freeze 1 \
+--lr-decay-step 10 \
+--lr-decay-gamma 0.25
+```
+
+| Method  | Backbone  | R@1  | R@10 | NMI  |  RP  | MAP@R |
+| :-----: | :-------: | :--: | :--: | :--: | :--: | :---: |
+| IDML-PA | ResNet-50 | 81.5 | 92.7 | 92.3 | 54.8 | 51.3  |
+
+## Device 
+
+We tested our code on a Linux machine with 8 Nvidia RTX 2080ti GPU cards. 
+
+## Acknowledgment
+
+Our code is based on [ProxyAnchor](https://github.com/tjddus9597/Proxy-Anchor-CVPR2020).
+
+## Extension to Image Classification
+
+Our framework can be readily extended to image classification. We followed the setting of [CutMix](https://github.com/clovaai/CutMix-PyTorch) and conducted experiments on the ImageNet-1K, CIFAR-10, and CIFAR-100 datasets, which shows that equipping existing data mixing methods with the proposed introspective metric consistently achieves better results (e.g., +0.44% for CutMix on ImageNet-1K).
 
 #### ImageNet-1K
 
@@ -123,10 +200,10 @@ For image classification, we followed the setting of [CutMix](https://github.com
 If you find this project useful in your research, please cite:
 
 ````
-@article{wang2022introspective,
+@article{wang2023introspective,
     title={Introspective Deep Metric Learning},
     author={Wang, Chengkun and Zheng, Wenzhao and Zhu, Zheng and Zhou, Jie and Lu, Jiwen},
-    journal={arXiv preprint arXiv:2205.04449},
-    year={2022}
+    journal={TPAMI},
+    year={2023}
 }
 ````
