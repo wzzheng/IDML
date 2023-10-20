@@ -8,6 +8,8 @@ This repository is the official implementation of our paper:
 >
 >  IEEE Transactions on Pattern Analysis and Machine Intelligence (T-PAMI), 2023
 
+### [Paper](https://arxiv.org/pdf/2309.09982)
+
 ## Introduction
 
 This paper proposes an introspective deep metric learning (IDML) framework for uncertainty-aware comparisons of images. Conventional deep metric learning methods produce confident semantic distances between images regardless of the uncertainty level. However, we argue that a good similarity model should consider the semantic discrepancies with caution to better deal with ambiguous images for more robust training. To achieve this, we propose to represent an image using not only a semantic embedding but also an accompanying uncertainty embedding, which describe the semantic characteristics and ambiguity of an image, respectively. We further propose an introspective similarity metric to make similarity judgments between images considering both their semantic differences and ambiguities. Our framework attains state-of-the-art performance on the widely used CUB-200-2011, Cars196, and Stanford Online Products datasets.
